@@ -31,13 +31,20 @@ def login():
     userAccountNumber = int(input("What is your account number? \n"))
     password = input("What is your password \n")
 
+    noUser = False
+
     for accountNumber, userDetails in database.items():
         if (accountNumber == userAccountNumber):
             if (userDetails[3] == password):
                 bankOperation(userDetails)
+            else:
+                noUser = True
+        else:
+            noUser = True
 
-    print('Invalid account or password')
-    login()
+    if (noUser == True):
+        print('Invalid account or password')
+        login()
 
 
 #user registration: first_name, last_name, email, password,accountNumber
@@ -67,18 +74,18 @@ def bankOperation(user):
     print('Date:', now.strftime("%a %d/%m/%y %H:%M:%S"))
     print("Welcome %s %s " % (user[0], user[1]))
 
-    selectedOption = int(input("What would you like to do?\n (1) deposit\n (2) withdrawal\n (3) Logout\n (4) Exit \n"))
+    selectOption = int(input("What would you like to do?\n (1) deposit\n (2) withdrawal\n (3) Logout\n (4) Exit \n"))
 
-    if (selectedOption == 1):
+    if (selectOption == 1):
 
         depositOperation()
-    elif (selectedOption == 2):
+    elif (selectOption == 2):
 
         withdrawalOperation()
-    elif (selectedOption == 3):
+    elif (selectOption == 3):
 
         logout()
-    elif (selectedOption == 4):
+    elif (selectOption == 4):
 
         exit()
     else:
